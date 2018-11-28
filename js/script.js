@@ -5,7 +5,6 @@ FSJS project 2 - List Filter and Pagination
    
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
-
 /*** 
    Add your global variables that store the DOM elements you will 
    need to reference and/or manipulate. 
@@ -17,10 +16,11 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
-const page = document.getElementsByClassName('page');
-const studentList = document.getElementsByClassName('student-list');
+const page = document.querySelector('.page');
+const studentList = document.querySelectorAll('.student-list');
+const students = document.querySelectorAll('.student-item');
 
-studentList 
+const maxStudentsPerPage = 10;
 
 /*** 
    Create the `showPage` function to hide all of the items in the 
@@ -45,8 +45,21 @@ const showPage = (list, page) => {
   -- && the list item index is <= the index of the last item
    that should be shown on the page, show it
    */
-   }
 
+
+
+//   for (let i = 0; i < list.length; i++) {
+//    const firstItemToShow = page 
+//    const lastItemToShow = firstItemToShow + maxStudentsPerPage;
+
+//    if ((i >= list) && (i <= list)) {
+         
+//       }
+//       else {
+//          list[i].style.display = 'none';
+//       }
+//    }
+}
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
@@ -66,8 +79,23 @@ const appendPageLinks = (list) => {
    7. Add the active class to the link that was just clicked. You can identify that
    clicked link using event.target
    */
-   }
+  
+  const pagesLinksNeeded = Math.floor(list.length / maxStudentsPerPage);
+  
+  const div = document.createElement('div');
+  div.className = 'pagination';
+  page.appendChild(div);
+  
+  const ul = document.createElement('ul');
+  div.appendChild(ul);
+  
+  for (let i = 0; i < pagesLinksNeeded; i++) {
+   const li = document.createElement('li');
+   const a = document.createElement('a');
+   a.setAttribute('href', '#');
+   a.textContent = i + 1;
+   li.appendChild(a);
+   ul.appendChild(li);
+  } 
 
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+}

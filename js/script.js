@@ -5,22 +5,10 @@ FSJS project 2 - List Filter and Pagination
    
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
-
 const page = document.querySelector('.page');
 const studentList = document.querySelectorAll('.student-list');
 const students = document.querySelectorAll('.student-item');
-
-const maxStudentsPerPage = 10;
+const studentsPerPage = 10;
 
 /*** 
    Create the `showPage` function to hide all of the items in the 
@@ -46,19 +34,16 @@ const showPage = (list, page) => {
    that should be shown on the page, show it
    */
 
+   const firstItemToShow = page * 10 - 10;
+   const lastItemToShow = firstItemToShow + studentsPerPage;
 
-
-//   for (let i = 0; i < list.length; i++) {
-//    const firstItemToShow = page 
-//    const lastItemToShow = firstItemToShow + maxStudentsPerPage;
-
-//    if ((i >= list) && (i <= list)) {
-         
-//       }
-//       else {
-//          list[i].style.display = 'none';
-//       }
-//    }
+   for (let i = 0; i < list.length; i++) {
+      if ((i >= firstItemToShow) && (i <= lastItemToShow)) {
+         list[i].style.visibility == 'visible';
+      } else {
+         list[i].style.display == 'none';
+      }
+   }
 }
 
 /*** 
@@ -80,7 +65,7 @@ const appendPageLinks = (list) => {
    clicked link using event.target
    */
   
-  const pagesLinksNeeded = Math.floor(list.length / maxStudentsPerPage);
+  const pagesLinksNeeded = Math.floor(list.length / studentsPerPage);
   
   const div = document.createElement('div');
   div.className = 'pagination';
@@ -89,6 +74,7 @@ const appendPageLinks = (list) => {
   const ul = document.createElement('ul');
   div.appendChild(ul);
   
+  // Dynamically create pagination links 
   for (let i = 0; i < pagesLinksNeeded; i++) {
    const li = document.createElement('li');
    const a = document.createElement('a');
@@ -96,6 +82,9 @@ const appendPageLinks = (list) => {
    a.textContent = i + 1;
    li.appendChild(a);
    ul.appendChild(li);
-  } 
+   a.addEventListener('click', showPage)
+  }
+
+  // Loop over links and remove active class from all links
 
 }

@@ -33,15 +33,15 @@ const showPage = (list, page) => {
   -- && the list item index is <= the index of the last item
    that should be shown on the page, show it
    */
-
+   
    const firstItemToShow = page * 10 - 10;
    const lastItemToShow = firstItemToShow + studentsPerPage;
 
    for (let i = 0; i < list.length; i++) {
       if ((i >= firstItemToShow) && (i <= lastItemToShow)) {
-         list[i].style.visibility == 'visible';
+         list[i].style.visibility = 'visible';
       } else {
-         list[i].style.display == 'none';
+         list[i].style.display = 'none';
       }
    }
 }

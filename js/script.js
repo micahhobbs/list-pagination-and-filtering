@@ -25,7 +25,7 @@ const studentsPerPage = 10;
        "invoke" the function 
 ***/
 
-const showPage = (list, page) => {
+const showPage = (list, page = 1) => {
    /*
    Loop over items in the list parameter
    -- If the index of a list item is >= the index of the first
@@ -35,7 +35,7 @@ const showPage = (list, page) => {
    */
    
    const firstItemToShow = page * 10 - 10;
-   const lastItemToShow = firstItemToShow + studentsPerPage;
+   const lastItemToShow = firstItemToShow + studentsPerPage - 1;
 
    for (let i = 0; i < list.length; i++) {
       if ((i >= firstItemToShow) && (i <= lastItemToShow)) {
@@ -82,9 +82,20 @@ const appendPageLinks = (list) => {
    a.textContent = i + 1;
    li.appendChild(a);
    ul.appendChild(li);
-   a.addEventListener('click', showPage)
   }
+
+  // Get all created a elements
+  const aTags = document.getElementsByTagName('a');
+  
+  // Set first page link to active
+  aTags[0].classList.add('active');
+
+  // Add an event listener to each a tag (5)
+  
 
   // Loop over links and remove active class from all links
 
 }
+
+showPage(students);
+appendPageLinks(students);

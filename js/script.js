@@ -91,6 +91,14 @@ const appendPageLinks = (list) => {
   aTags[0].classList.add('active');
 
   // Add an event listener to each a tag (5)
+
+  for(let link of aTags) {
+     // Check to see if class active already there
+     link.addEventListener('click', () => {
+        link.classList.add('active');
+     })
+     // Take off class list 
+  }
   
 
   // Loop over links and remove active class from all links

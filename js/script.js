@@ -78,7 +78,8 @@ const appendPageLinks = (list) => {
   for (let i = 0; i < pagesLinksNeeded; i++) {
    const li = document.createElement('li');
    const a = document.createElement('a');
-   a.setAttribute('href', '#');
+   //a.setAttribute('href', 'javascript:void();');
+   a.setAttribute('class' , '');
    a.textContent = i + 1;
    li.appendChild(a);
    ul.appendChild(li);
@@ -87,22 +88,22 @@ const appendPageLinks = (list) => {
   // Get all created a elements
   const aTags = document.getElementsByTagName('a');
   
-  // Set first page link to active
+  // Set first page link to active 
   aTags[0].classList.add('active');
 
-  // Add an event listener to each a tag (5)
-
-  for(let link of aTags) {
-     // Check to see if class active already there
-     link.addEventListener('click', () => {
-        link.classList.add('active');
-     })
-     // Take off class list 
-  }
+//   function pageLinkHighlight(e) {
+//      if (e.target.classList == '') {
+//         e.target.classList.add('active');
+//   }
   
+// Add an event listener to each a tag (5)
+  for (let link of aTags) {
+     link.addEventListener('click', showPage);
+   }
 
-  // Loop over links and remove active class from all links
+   // for (let link of aTags) {
 
+   // }
 }
 
 showPage(students);

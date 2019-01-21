@@ -10,7 +10,7 @@ const studentList = document.querySelectorAll('.student-list');
 const students = document.querySelectorAll('.student-item');
 const studentsPerPage = 10;
 
-const showPage = (list, page = 1) => {
+const showPage = (list, page) => {
    const firstItemToShow = page * 10 - 10;
    const lastItemToShow = firstItemToShow + studentsPerPage - 1;
 
@@ -30,12 +30,11 @@ const showPage = (list, page = 1) => {
 
 const appendPageLinks = (list) => {
   
-  const pagesLinksNeeded = Math.floor(list.length / studentsPerPage);
+  const pagesLinksNeeded = Math.floor(list.length / studentsPerPage) + 1;
   
   const div = document.createElement('div');
   div.className = 'pagination';
   page.appendChild(div);
-  
   const ul = document.createElement('ul');
   div.appendChild(ul);
   
@@ -73,5 +72,5 @@ const appendPageLinks = (list) => {
     }
   }
 
-showPage(students);
+showPage(students, 1);
 appendPageLinks(students);

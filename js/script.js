@@ -16,7 +16,7 @@ const showPage = (list, page) => {
 
    for (let i = 0; i < list.length; i++) {
       if ((i >= firstItemToShow) && (i <= lastItemToShow)) {
-         list[i].style.visibility = 'visible';
+         list[i].style.display = '';
       } else {
          list[i].style.display = 'none';
       }

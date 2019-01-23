@@ -1,3 +1,4 @@
+'use strict'
 /******************************************
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
@@ -10,21 +11,18 @@ const page = document.querySelector('.page');
 const pageHeader = document.querySelector('.page-header');
 const studentList = document.querySelectorAll('.student-list');
 const students = document.querySelectorAll('.student-item');
-const studentNameList = document.querySelectorAll('h3');
-const searchValue = document.querySelector('input').value;
-const searchButton = document.querySelector('button');
 const studentsPerPage = 10;
 
 // Dynamically create search HTML
 const searchDiv = document.createElement('div');
 searchDiv.setAttribute('class', 'student-search');
-const searchInput = document.createElement('input');
-searchInput.setAttribute('placeholder', 'Search for students...');
-const searchButtonCreate = document.createElement('button');
-searchButtonCreate.textContent = 'Search';
+const searchBox = document.createElement('input');
+searchBox.setAttribute('placeholder', 'Search for students...');
+const searchSubmit = document.createElement('button');
+searchSubmit.textContent = 'Search';
 // Append search elements to DIV and Page Header
-searchDiv.appendChild(searchInput);
-searchDiv.appendChild(searchButtonCreate);
+searchDiv.appendChild(searchBox);
+searchDiv.appendChild(searchSubmit);
 pageHeader.appendChild(searchDiv);
 
 // Show or hide list of students depending on page
@@ -40,6 +38,8 @@ const showPage = (list, page) => {
       }
    }
 }
+
+showPage(students, 1);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
@@ -82,24 +82,37 @@ const appendPageLinks = (list) => {
 
    // Add an event listener to each a tag
    for (let link of aTags) {
-      link.addEventListener('click', function (e) {
+      link.addEventListener('click', function(e) {
          showPage(students, e.target.textContent), 
          updateLinkClass(e)
       });
     }
   }
 
-// Button click event listener search
-searchButton.addEventListener('click', function() {
-   searchStudents(studentNameList, searchValue)
-  });
+appendPageLinks(students);
 
-// Keyup event listener search
+const filterInput = document.getElementsByTagName('input')[0];
 
+/* Think instead of getting list items (lis) i first need to get the ul element and then the 
+indivdual items under that. And use that to pass into the other functions 
+That way i'll be able to append filter list items
+to the a new parent ul and then pass that into the append page function */
 
-const searchStudents = (list, searchInput) => {
-
+const filterStudents = () => {
+   //const filteredList;
+   const filterValue = filterInput.value.toUpperCase();
+   for (let i = 0; i < students.length; i++) {
+      let name = students[i].getElementsByTagName('h3')[0];
+      if (name.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+         students[i].style.display = '';
+         //filteredList.appendChild(students[i])
+      } else {
+         students[i].style.display = 'none';
+      }
+   }
+   //appendPageLinks(filteredList);
 }
 
-showPage(students, 1);
-appendPageLinks(students);
+filterInput.addEventListener('keyup', filterStudents);
+
+

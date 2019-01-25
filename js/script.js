@@ -13,7 +13,7 @@ const studentList = document.querySelectorAll('.student-list');
 const students = document.querySelectorAll('.student-item');
 const studentsPerPage = 10;
 
-// Dynamically create search HTML
+// Create search HTML
 const searchDiv = document.createElement('div');
 searchDiv.setAttribute('class', 'student-search');
 const searchBox = document.createElement('input');
@@ -52,6 +52,13 @@ div.className = 'pagination';
 page.appendChild(div);
 const ul = document.createElement('ul');
 div.appendChild(ul);
+
+// Create no filter results warning message
+const noMatchDisplay = document.createElement('p');
+const noMatchContent = document.createTextNode('No matches found, please try again');
+noMatchDisplay.style.display ='none';
+noMatchDisplay.appendChild(noMatchContent);
+div.appendChild(noMatchDisplay);
 
 const appendPageLinks = (list) => {
   const arrayList = Array.from(list);
@@ -97,14 +104,9 @@ const appendPageLinks = (list) => {
     }
   }
 
+/* Filter list of students from search input */
 appendPageLinks(students);
-
-/* Think instead of getting list items (lis) i first need to get the ul element and then the 
-indivdual items under that. And use that to pass into the other functions 
-That way i'll be able to append filter list items
-to the a new parent ul and then pass that into the append page function */
 const filterInput = document.getElementsByTagName('input')[0];
-
 const filterStudents = () => {
    const filteredArrayList = [];
    const filterValue = filterInput.value.toUpperCase();
@@ -117,8 +119,27 @@ const filterStudents = () => {
          students[i].style.display = 'none';
       }
    }
-   showPage(filteredArrayList, 1);
-   appendPageLinks(filteredArrayList);
+   if (filteredArrayList.length === 0) {
+      if (ul.hasChildNodes) {
+         while (ul.firstChild) {
+            ul.removeChild(ul.firstChild);
+         }
+      }
+   } else {
+      showPage(filteredArrayList, 1);
+      appendPageLinks(filteredArrayList);
+   }
+   noResults(filteredArrayList)
+}
+
+// display no matches heads up
+const noResults = (list) => {
+   if (list.length === 0) {
+      noMatchDisplay.style.display = '';
+   } else {
+      noMatchDisplay.style.display = 'none';
+   }
 }
 
 filterInput.addEventListener('keyup', filterStudents);
+searchSubmit.addEventListener('click', filterStudents);

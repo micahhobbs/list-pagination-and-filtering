@@ -13,14 +13,13 @@ const studentList = document.querySelectorAll('.student-list');
 const students = document.querySelectorAll('.student-item');
 const studentsPerPage = 10;
 
-// Create search HTML
+// Create and append search bar and button
 const searchDiv = document.createElement('div');
 searchDiv.setAttribute('class', 'student-search');
 const searchBox = document.createElement('input');
 searchBox.setAttribute('placeholder', 'Search for students...');
 const searchSubmit = document.createElement('button');
 searchSubmit.textContent = 'Search';
-// Append search elements to DIV and Page Header
 searchDiv.appendChild(searchBox);
 searchDiv.appendChild(searchSubmit);
 pageHeader.appendChild(searchDiv);
@@ -53,7 +52,7 @@ page.appendChild(div);
 const ul = document.createElement('ul');
 div.appendChild(ul);
 
-// Create no filter results warning message
+// Create, hide, and append no filter results warning message
 const noMatchDisplay = document.createElement('p');
 const noMatchContent = document.createTextNode('No matches found, please try again');
 noMatchDisplay.style.display ='none';

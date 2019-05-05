@@ -3,11 +3,10 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ***************************************** */
 
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
-
 // Get page elements
 const page = document.querySelector('.page');
 const pageHeader = document.querySelector('.page-header');
+const studentList = document.querySelectorAll('.student-list');
 const students = document.querySelectorAll('.student-item');
 const studentsPerPage = 10;
 
@@ -28,7 +27,7 @@ const showPage = (list, page) => {
   const firstItemToShow = page * 10 - 10;
   const lastItemToShow = firstItemToShow + studentsPerPage - 1;
 
-  for (let i = 0; i < listArray.length; i + 1) {
+  for (let i = 0; i < listArray.length; i++) {
     if (i >= firstItemToShow && i <= lastItemToShow) {
       listArray[i].style.display = '';
     } else {
@@ -39,10 +38,10 @@ const showPage = (list, page) => {
 
 showPage(students, 1);
 
-/*
+/** * 
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
-*/
+** */
 
 const div = document.createElement('div');
 div.className = 'pagination';
@@ -71,7 +70,7 @@ const appendPageLinks = list => {
   }
 
   // Dynamically create pagination links and append
-  for (let i = 0; i < pagesLinksNeeded; i + 1) {
+  for (let i = 0; i < pagesLinksNeeded; i++) {
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.setAttribute('class', '');
@@ -102,22 +101,13 @@ const appendPageLinks = list => {
   }
 };
 
-// display no matches heads up
-const noResults = list => {
-  if (list.length === 0) {
-    noMatchDisplay.style.display = '';
-  } else {
-    noMatchDisplay.style.display = 'none';
-  }
-};
-
 /* Filter list of students from search input */
 appendPageLinks(students);
 const filterInput = document.getElementsByTagName('input')[0];
 const filterStudents = () => {
   const filteredArrayList = [];
   const filterValue = filterInput.value.toUpperCase();
-  for (let i = 0; i < students.length; i + 1) {
+  for (let i = 0; i < students.length; i++) {
     const name = students[i].getElementsByTagName('h3')[0];
     if (name.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
       students[i].style.display = '';
@@ -137,6 +127,15 @@ const filterStudents = () => {
     appendPageLinks(filteredArrayList);
   }
   noResults(filteredArrayList);
+};
+
+// display no matches heads up
+const noResults = list => {
+  if (list.length === 0) {
+    noMatchDisplay.style.display = '';
+  } else {
+    noMatchDisplay.style.display = 'none';
+  }
 };
 
 filterInput.addEventListener('keyup', filterStudents);
